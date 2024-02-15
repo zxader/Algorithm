@@ -23,21 +23,25 @@ public class Solution {
 			int ca = 1;
 			int rb = 10;
 			int cb = 10;
-
+			
+			// A이동 입력
 			split = in.readLine().split(" ");
 			for (int i = 0; i < M; i++) {
 				moveA[i] = Integer.parseInt(split[i]);
 			}
-
+			
+			// B이동 입력
 			split = in.readLine().split(" ");
 			for (int i = 0; i < M; i++) {
 				moveB[i] = Integer.parseInt(split[i]);
 			}
-
-			int[][][] charge = new int[11][11][A];
-			int[][] deltas = {{0, 0}, {-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+			
+			
+			int[][][] charge = new int[11][11][A]; // 배터리 3차원 배열
+			int[][] deltas = {{0, 0}, {-1, 0}, {0, 1}, {1, 0}, {0, -1}}; // 이동을 위한 배열
 			int sum = 0;
-
+			
+			// 배터리 3차원 배열에 담기
 			for (int k = 0; k < A; k++) {
 				split = in.readLine().split(" ");
 				int c = Integer.parseInt(split[0]);
@@ -65,6 +69,8 @@ public class Solution {
 			}
 			int max1 = 0;
 			int max2 = 0;
+			
+			// 0초일 때 배터리있는지 확인하고 있으면 더하기
 			for (int j = 0; j < A; j++) {
 				if (max1 < charge[1][1][j]) {
 					max1 = charge[1][1][j];
@@ -74,20 +80,22 @@ public class Solution {
 				}
 			}
 			sum = max1 + max2;
-
+			
+			// M초 동안 이동
 			for (int i = 0; i < M; i++) {
 				ra = ra + deltas[moveA[i]][0];
 				ca = ca + deltas[moveA[i]][1];
 				rb = rb + deltas[moveB[i]][0];
 				cb = cb + deltas[moveB[i]][1];
-				max1 = 0;
-				max2 = 0;
-				int max3 = 0;
-				int idx1 = -2;
-				int idx2 = -1;
-				int save = 0;
-				boolean check = false;
+				max1 = 0; // A가 배터리 범위에 있을 때 최댓값 저장
+				max2 = 0; // B가 배터리 범위에 있을 때 최댓값 저장
+				int max3 = 0; // A, B가 같은 배터리 범위에 있을 때 최댓값 저장
+				int idx1 = -2; // A의 위치에서 배터리가 있을 떄 인덱스값 저장
+				int idx2 = -1; // B의 위치에서 배터리가 있을 떄 인덱스값 저장
+				int save = 0; // max1, max2 중에 큰 값 저장
+				boolean check = false; // 겹치는 배터리 있는지 확인을 위한 check
 				
+				// A,B가 겹치는 배터리 있는지 확인
 				for (int j = 0; j < A; j++) {
 					if (charge[ra][ca][j] != 0) {
 						idx1 = j;
@@ -104,8 +112,11 @@ public class Solution {
 						idx2 = -1;
 					}
 				}
-
+				
+				// A, B가 같은 배터리 범위에 있을 때
 				if (check) {
+					
+					// 공유하는 배터리값이 아닌 최댓값 각각 저장
 					for (int j = 0; j < A; j++) {
 						if (charge[ra][ca][j] != max3) {
 							if (charge[ra][ca][j] > max1) {
@@ -120,23 +131,28 @@ public class Solution {
 
 					}
 
-					boolean check2 = false;
+					// 공유하는 값이 공유하지않는 배터리값들보다 작을 때 체크
+					boolean check2 = false; 
 					if(max1 > max3 && max2 > max3) {
 						check2 = true;
 					}
+					
+					// max1, max2 중에 큰 값 저장
 					if(max1 < max2) {
 						save = max2;
 					}
 					else {
 						save = max1;
 					}
-
+					
+					// 공유하는 값이 공유하지않는 배터리값들보다 작을 때 
 					if (check2) {
 						sum += (max1 + max2);
 					}else {
 						sum += (max3 + save);
 					}
 				}
+				// A, B가 같은 배터리 범위내에 없을 때
 				else {
 					for (int j = 0; j < A; j++) {
 						if (charge[ra][ca][j] > max1) {
