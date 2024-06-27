@@ -57,8 +57,9 @@ public class Main {
 				if (check[cur.no]) continue;
 				check[cur.no] = true; 
 				result += min[cur.no];
+				if (++cnt == m) break;
 				for (Node temp = node[cur.no]; temp != null; temp = temp.next) {
-					if(!check[temp.no] && min[temp.no] > temp.cost) {
+					if(min[temp.no] > temp.cost) {
 						min[temp.no] = temp.cost;
 						q.offer(new Node(temp.no, min[temp.no], null));
 					}
