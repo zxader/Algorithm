@@ -7,13 +7,11 @@ public class Main {
 		int value;
 		Node left;
 		Node right;
-		Node parent;
 
-		public Node (int value, Node left, Node right, Node parent) {
+		public Node (int value, Node left, Node right) {
 			this.value = value;
 			this.left = left;
 			this.right = right;
-			this.parent = parent;
 		}
 	}
 
@@ -22,7 +20,7 @@ public class Main {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 		int value = Integer.parseInt(br.readLine());
-		Node tempNode = new Node(value, null, null, null);
+		Node tempNode = new Node(value, null, null);
 		String str;
 		while(true) {
 			str = br.readLine();
@@ -34,10 +32,11 @@ public class Main {
 		}
 		dfs(tempNode);
 	}
+	
 	static void insert(Node tempNode, int value) {
 		if (value < tempNode.value) {
 			if (tempNode.left == null) {
-				tempNode.left = new Node(value, null, null, tempNode);
+				tempNode.left = new Node(value, null, null);
 			}
 			else {
 				insert(tempNode.left, value);
@@ -45,7 +44,7 @@ public class Main {
 		}
 		else {
 			if (tempNode.right == null) {
-				tempNode.right = new Node(value, null, null, tempNode);
+				tempNode.right = new Node(value, null, null);
 			}
 			else {
 				insert(tempNode.right, value);
