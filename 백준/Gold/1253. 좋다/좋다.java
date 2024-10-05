@@ -17,23 +17,20 @@ public class Main {
 		for (int i = list.size() - 1; i >= 0; i--) {
 			int start = 0;
 			int end = list.size() - 1;
+			int num = list.get(i);
+			
 			while(start < end) {
-				if (start == i) {
+				int startValue = list.get(start);
+				int endValue = list.get(end);
+				if (startValue + endValue > num || end == i) {
+					end--;
+				}
+				else if(startValue + endValue < num || start == i) {
 					start++;
-				}
-				if (end == i) {
-					end--;
-				}
-				if (start == end) break;
-				if (list.get(start) + list.get(end) == list.get(i)) {
-					result++;
-					break;
-				}
-				if (list.get(start) + list.get(end) > list.get(i)) {
-					end--;
 				}
 				else {
-					start++;
+					result++;
+					break;
 				}
 			}
 		}
