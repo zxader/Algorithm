@@ -1,57 +1,45 @@
 import java.util.*;
 
 class Solution {
-    static int N;
-    static int temp;
-    static boolean[] check;
-    static String tempNumbers;
-    static Set<Integer> set;
+    static Set<Integer> primeSet;
     
     public int solution(String numbers) {
-        N = numbers.length();
-        temp = 0;
-        check = new boolean[N];
-        tempNumbers = numbers;
-        set = new HashSet<>();
+        primeSet = new HashSet<>();
         
-        perm(0);
+        perm("", numbers, new boolean[numbers.length()]);
         
-        // 중복 제거 후 소수 갯수 리턴
-        return set.size();
+        return primeSet.size(); // 소수의 개수 반환
     }
     
     // 순열
-    static void perm(int cnt) {
-        if (cnt > 0) {
-            // 소수인지 확인
-            checkNum(temp);
-        }
-        
-        for (int i = 0; i < N; i++) {
-            if (check[i]) continue;
+    private void perm(String current, String numbers, boolean[] visited) {
+        if (!current.isEmpty()) {
+            int num = Integer.parseInt(current);
             
-            temp = temp * 10 + (tempNumbers.charAt(i) - '0');
-            check[i] = true;
-            perm(cnt + 1);
-            check[i] = false;
-            temp /= 10;
-        }
-        
-    }
-    
-    // 소수인지 확인
-    static void checkNum(int num) {
-        if (num <= 1) return;
-        
-        for (int i = 2; i <= Math.sqrt(num);i++) {
-            
-            // 소수 아닌 경우
-            if (num % i == 0) {
-                return;
+            if (isPrime(num)) {
+                primeSet.add(num); // 소수이면 Set에 추가
             }
         }
         
-        // 소수인 경우 set에 추가
-        set.add(num);
+        for (int i = 0; i < numbers.length(); i++) {
+            if (!visited[i]) {
+                visited[i] = true;
+                
+                perm(current + numbers.charAt(i), numbers, visited);
+                
+                visited[i] = false;
+            }
+        }
+    }
+    
+    // 소수 판별
+    private boolean isPrime(int num) {
+        if (num <= 1) return false;
+        
+        for (int i = 2; i <= Math.sqrt(num); i++) {
+            if (num % i == 0) return false;
+        }
+        
+        return true;
     }
 }
