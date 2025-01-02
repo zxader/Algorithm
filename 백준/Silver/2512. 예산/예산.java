@@ -12,46 +12,42 @@ public class Main {
         arr = new int [N];
         
         StringTokenizer st = new StringTokenizer(br.readLine());
-        int sum = 0;
+        int maxValue = 0;
+        
         for (int i = 0; i < N; i++) {
         	arr[i] = Integer.parseInt(st.nextToken());
-        	sum += arr[i];
+        	maxValue = Math.max(maxValue, arr[i]);
         }
         
-        Arrays.sort(arr);
-
         M = Integer.parseInt(br.readLine());
+       
+    	int result = 0;
         
-        if (sum <= M) {
-        	System.out.println(arr[N - 1]);
-        }
-        else {
-        	int result = 0;
-            
-        	int start = 1;
-        	int end = arr[N - 1];
-        	
-        	while (start <= end) {
-        		int mid = (start + end) / 2;
-        		int temp = 0;
-        		for (int i = 0; i < N; i++) {
-        			if (arr[i] <= mid) {
-        				temp += arr[i];
-        			}
-        			else {
-        				temp += mid;
-        			}
-        		}
-        		
-        		if (temp <= M) {
-        			start = mid + 1;
-        			result = mid;
-        		}
-        		else {
-        			end = mid - 1;
-        		}
-        	}
-        	System.out.println(result);
-        }
+    	int start = 1;
+    	int end = maxValue;
+    	
+    	while (start <= end) {
+    		int mid = (start + end) / 2;
+    		int temp = 0;
+    		
+    		for (int i = 0; i < N; i++) {
+    			if (arr[i] <= mid) {
+    				temp += arr[i];
+    			}
+    			else {
+    				temp += mid;
+    			}
+    		}
+    		
+    		if (temp <= M) {
+    			start = mid + 1;
+    			result = mid;
+    		}
+    		else {
+    			end = mid - 1;
+    		}
+    	}
+    	
+    	System.out.println(result);
     }
 }
