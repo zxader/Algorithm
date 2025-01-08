@@ -47,11 +47,14 @@ public class Solution {
         	while (!q.isEmpty()) {
         		Point p = q.poll();
         		
+        		if (visited[p.r][p.c]) continue;
+        		visited[p.r][p.c] = true;
+        		
         		for (int d = 0; d < 4; d++) {
         			int dr = p.r + deltas[d][0];
         			int dc = p.c + deltas[d][1];
         			
-        			if (0 <= dr && dr < N && 0 <= dc && dc < N && 
+        			if (0 <= dr && dr < N && 0 <= dc && dc < N && !visited[dr][dc] &&
         					dijk[dr][dc] > dijk[p.r][p.c] + map[dr][dc]) {
         				dijk[dr][dc] = dijk[p.r][p.c] + map[dr][dc]; 
         				q.offer(new Point(dr, dc, dijk[dr][dc]));
