@@ -50,6 +50,8 @@ public class Solution {
         		if (visited[p.r][p.c]) continue;
         		visited[p.r][p.c] = true;
         		
+        		if (p.r == N - 1 && p.c == N - 1) break;
+        		
         		for (int d = 0; d < 4; d++) {
         			int dr = p.r + deltas[d][0];
         			int dc = p.c + deltas[d][1];
