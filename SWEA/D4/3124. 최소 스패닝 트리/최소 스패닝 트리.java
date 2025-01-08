@@ -32,6 +32,8 @@ public class Solution {
         	int E = Integer.parseInt(st.nextToken());
         	Node[] node = new Node[V + 1];
         	boolean[] visited = new boolean[V + 1];
+        	int[] minEdge = new int[V + 1];
+        	Arrays.fill(minEdge, Integer.MAX_VALUE);
         	
         	for (int i = 0; i < E; i++) {
         		st = new StringTokenizer(br.readLine());
@@ -41,11 +43,12 @@ public class Solution {
         		node[from] = new Node(to, node[from], value);
         		node[to] = new Node(from, node[to], value);
         	}
-        	
-        	PriorityQueue<Node> q = new PriorityQueue<>();
-        	q.add(new Node(1, null, 0));
+
         	long result = 0;
         	int cnt = 0;
+        	PriorityQueue<Node> q = new PriorityQueue<>();
+        	minEdge[1] = 0;
+        	q.add(new Node(1, null, minEdge[1]));
         	
         	while (!q.isEmpty()) {
         		Node p = q.poll();
@@ -55,11 +58,12 @@ public class Solution {
         		result += p.value;
         		visited[p.no] = true; 
         		
-        		if (++cnt > V - 1) break;
+        		if (++cnt == V) break;
         		
         		for (Node temp = node[p.no]; temp != null; temp = temp.next) {
-        			if (!visited[temp.no]) {
-        				q.add(new Node(temp.no, null, temp.value));
+        			if (!visited[temp.no] && minEdge[temp.no] > temp.value) {
+        				minEdge[temp.no] = temp.value; 
+        				q.add(new Node(temp.no, null, minEdge[temp.no]));
         			}
         		}
         	}
