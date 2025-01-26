@@ -16,16 +16,16 @@ public class Main {
         }
         
         // 투포인터를 활용하여 두 용액 구하기
-        Arrays.sort(arr); // 정렬
+        Arrays.sort(arr);
         
         int left = 0;
         int right = N - 1;
-        int resultLeft = arr[0]; // 0에 가까운 수를 만드는 왼쪽 용액 값
-        int resultRight = arr[N - 1]; // 0에 가까운 수를 만드는 오른쪽 용액 값
+        int resultLeft = arr[0]; 
+        int resultRight = arr[N - 1];
         int result = Integer.MAX_VALUE; // 두 용액을 합해서  0에 가까운 값을 저장하기 위한 변수 
         
         while (left < right) {
-        	int sum = arr[left] + arr[right]; // 두 용액의 합
+        	int sum = arr[left] + arr[right];
         	
         	if (Math.abs(sum) < result) {
         		result = Math.abs(sum);
