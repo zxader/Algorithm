@@ -7,7 +7,6 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
         int[] dp = new int[N + 1];
-        dp[0] = 1;
         dp[1] = 1;
         if (N > 1) dp[2] = 2;
         
