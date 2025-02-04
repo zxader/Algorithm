@@ -12,9 +12,9 @@ public class Main {
         if (N > 1) dp[2] = 2;
         
         for (int i = 3; i <= N; i++) {
-        	dp[i] = (2 * dp[i - 2] + dp[i - 3]) % 15746; 
+        	dp[i] = (dp[i - 1] + dp[i - 2]) % 15746;
         }
         
-        System.out.println(dp[N] % 15746);
+        System.out.println(dp[N]);
 	}
 }
