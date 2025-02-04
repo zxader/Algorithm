@@ -31,7 +31,6 @@ public class Main {
         int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
         char[][] arr = new char[N][M];
-        Point end = null;
         Point red = null;
         Point blue = null;
         
@@ -40,10 +39,7 @@ public class Main {
         	for (int j = 0; j < M; j++) {
         		arr[i][j] = input.charAt(j);
         		
-        		if (arr[i][j] == 'O') {
-        			end = new Point(i, j);
-        		}
-        		else if(arr[i][j] == 'R') {
+        		if(arr[i][j] == 'R') {
         			red = new Point(i, j);
         		}
         		else if(arr[i][j] == 'B') {
@@ -53,11 +49,12 @@ public class Main {
         }
         
         boolean[][][][] visited = new boolean[N][M][N][M];
+        int[][] deltas = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+        int result = -1;
         
         Queue<State> q = new ArrayDeque<>();
+        visited[red.r][red.c][blue.r][blue.c] = true;
         q.offer(new State(red, blue, 0));
-        int result = -1;
-        int[][] deltas = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
         
         while (!q.isEmpty()) {
         	State p = q.poll();
