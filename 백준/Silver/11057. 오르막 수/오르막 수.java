@@ -13,10 +13,9 @@ public class Main {
         }
         
         for (int i = 2; i <= N; i++) {
-        	for (int j = 0; j < 10; j++) {
-        		for (int k = 0; k <= j; k++) {
-        			dp[i][j] += dp[i - 1][k] % 10007;
-        		}
+        	dp[i][0] = 1;
+        	for (int j = 1; j < 10; j++) {
+        		dp[i][j] = (dp[i][j - 1] + dp[i - 1][j]) % 10007;
         	}
         }
         
