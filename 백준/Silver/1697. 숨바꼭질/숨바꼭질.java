@@ -31,18 +31,13 @@ public class Main {
     			break;
     		}
     		
-    		if (visited[p.x]) continue;
+    		int[] deltas = {p.x - 1, p.x + 1, p.x * 2};
     		
-    		visited[p.x] = true;
-    		
-    		if (p.x - 1 >= 0) {
-    			q.offer(new Point(p.x - 1, p.v + 1));
-    		}
-    		if (p.x + 1 <= 100000) {
-    			q.offer(new Point(p.x + 1, p.v + 1));
-    		}
-    		if (p.x * 2 <= 100000) {
-    			q.offer(new Point(p.x * 2, p.v + 1));
+    		for (int d: deltas) {
+    			if (d >= 0 && d <= 100000 && !visited[d]) {
+    				q.offer(new Point(d, p.v + 1));
+    				visited[d] = true;
+    			}
     		}
     	}
     	
