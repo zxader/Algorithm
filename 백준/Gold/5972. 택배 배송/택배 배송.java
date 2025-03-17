@@ -42,7 +42,6 @@ public class Main {
     
     static int start() {
     	int[] minValue = new int[N + 1];
-    	boolean[] visited = new boolean[N + 1];
     	Arrays.fill(minValue, Integer.MAX_VALUE);
     	PriorityQueue<Node> q = new PriorityQueue<>();
     	q.offer(new Node(1, null, 0));
@@ -50,8 +49,6 @@ public class Main {
     	
     	while (!q.isEmpty()) {
     		Node p = q.poll();
-    		
-    		visited[p.no] = true;
     		
     		for (Node temp = node[p.no]; temp != null; temp = temp.next) {
     			if (minValue[temp.no] > minValue[p.no] + temp.value) {
