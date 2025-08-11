@@ -28,16 +28,8 @@ public class Main {
     		
     		for (int i = 1; i <= N; i++) {
     			for (int j = 1; j <= M; j++) {
-    				
-    				int sum = 0;
-    				int temp = j;
-    				
-    				while (temp >= 0) {
-    					sum += dp[i - 1][temp];
-    					temp -= arr[i];
-    				}
-    				
-    				dp[i][j] = sum;
+    				dp[i][j] = dp[i - 1][j];
+    				if (j >= arr[i]) dp[i][j] += dp[i][j - arr[i]];
     			}
     		}
     		
